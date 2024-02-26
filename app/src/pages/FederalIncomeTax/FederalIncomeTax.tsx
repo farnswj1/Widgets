@@ -62,15 +62,16 @@ const calculateFederalIncomeTax = (value: number, status: FilingStatus) => {
   let sum = 0;
 
   for (const tax in bracket) {
-    const threshold = bracket[tax]
+    const threshold = bracket[tax];
 
-    if (current >= threshold) {
+    if (current > threshold) {
       const amount = Number(tax) * (current - threshold);
       const roundedAmount = Math.round(amount * 100) / 100;
-      sum += roundedAmount
+      sum += roundedAmount;
       current = threshold;
     }
   }
+
   return sum;
 };
 
