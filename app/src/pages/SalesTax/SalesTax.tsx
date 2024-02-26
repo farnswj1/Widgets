@@ -9,6 +9,7 @@ import {
   Typography
 } from '@mui/material';
 import { HeaderTypography } from 'components';
+import { round } from 'utils';
 
 const SalesTax: FC = () => {
   const [result, setResult] = useState<string | null>(null);
@@ -21,10 +22,8 @@ const SalesTax: FC = () => {
     const price = Number(data.get('price'));
     const rate = Number(data.get('rate'));
 
-    // Round the result to the nearest hundredth
-    const result = price * ((100 + rate) / 100);
-    const roundedResult = Math.round(result * 100) / 100;
-    setResult(roundedResult.toFixed(2));
+    const result = round(price * ((100 + rate) / 100), 2);
+    setResult(result.toFixed(2));
   };
 
   return (

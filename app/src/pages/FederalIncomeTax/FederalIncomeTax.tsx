@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { HeaderTypography } from 'components';
+import { round } from 'utils';
 
 type FilingStatus = 'S' | 'MJ' | 'MS' | 'HH';
 type Bracket = { [key: number]: number };
@@ -65,9 +66,8 @@ const calculateFederalIncomeTax = (value: number, status: FilingStatus) => {
     const threshold = bracket[tax];
 
     if (current > threshold) {
-      const amount = Number(tax) * (current - threshold);
-      const roundedAmount = Math.round(amount * 100) / 100;
-      sum += roundedAmount;
+      const amount = round(Number(tax) * (current - threshold), 2);
+      sum += amount;
       current = threshold;
     }
   }
@@ -91,7 +91,6 @@ const FederalIncomeTax: FC = () => {
     const income = Number(data.get('income'));
     const status = data.get('status') as FilingStatus;
 
-    // Round the result to the nearest hundredth
     const result = calculateFederalIncomeTax(income, status);
     setResult(result.toFixed(2));
   };

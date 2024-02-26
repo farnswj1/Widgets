@@ -9,6 +9,7 @@ import {
   Typography
 } from '@mui/material';
 import { HeaderTypography } from 'components';
+import { round } from 'utils';
 
 const RandomNumberGenerator: FC = () => {
   const [result, setResult] = useState<number | null>(null);
@@ -21,7 +22,7 @@ const RandomNumberGenerator: FC = () => {
     const min = Number(data.get('min'));
     const max = Number(data.get('max'));
 
-    const result = min + Math.round(Math.random() * (max - min));
+    const result = min + round(Math.random() * (max - min));
     setResult(result);
   };
 

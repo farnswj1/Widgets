@@ -9,6 +9,7 @@ import {
   Typography
 } from '@mui/material';
 import { HeaderTypography } from 'components';
+import { round } from 'utils';
 import Information from './Information';
 
 const categorizeBMI = (value: number) => {
@@ -31,11 +32,9 @@ const BodyMassIndex: FC = () => {
     const weight = Number(data.get('weight'));
     const height = Number(data.get('height'));
 
-    // Round the result to the nearest hundredth
-    const result = (weight * 703) / (height ** 2);
-    const roundedResult = Math.round(result * 100) / 100;
-    const category = categorizeBMI(roundedResult);
-    setResult(`${roundedResult} (${category})`);
+    const result = round((weight * 703) / (height ** 2), 2);
+    const category = categorizeBMI(result);
+    setResult(`${result} (${category})`);
   };
 
   return (
